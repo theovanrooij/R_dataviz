@@ -2,10 +2,10 @@ library(lubridate)
 library(tidyr)
 library(tidyverse)
 
-df <- as_tibble(read.csv("players.csv"))
+df <- as_tibble(read.csv("data/players.csv"))
 names(df)
 
-results <- as_tibble(read.csv("results.csv"))
+results <- as_tibble(read.csv("data/results.csv"))
 
 median(results$rank_1)
 
@@ -54,14 +54,48 @@ rating_joueur_tournoi %>% filter(event_name == "ESEA MDL Season 30 Europe")
 rating_pays <- df %>% group_by(country) %>% summarise(mean_rating = mean(rating)) %>% arrange(desc(mean_rating))
 rating_pays
 
+
+if(!require(geojsonio)) install.packages("geojsonio", repos = "http://cran.us.r-project.org")
+if(!require(leaflet)) install.packages("leaflet", repos = "http://cran.us.r-project.org")
+if(!require(ggplot2)) install.packages("ggplot2", repos = "http://cran.us.r-project.org")
+
+
 # On isole les joueurs par tounois puis pay pays pour avopir le nombre de représentant d chaque pays par tournoi
-pays_tournois <- df %>% group_by(event_id,event_name,player_id,player_name,country) %>% summarise() %>% group_by(event_name,country) %>% summarise(nbRep = n())
-pays_tournois
+pays_tournois <- df %>% group_by(event_id,event_name,player_id,player_name,country) %>% summarise() %>% group_by(event_name,event_id,country) %>% summarise(nbRep = n())
 
-MAJORS <- c("StarLadder Berlin Major 2019","IEM Katowice Major 2019","FACEIT Major: London 2018","ELEAGUE Major: Boston 2018","PGL Major: Kraków 2017")
-MAJORS
-unique((df %>% filter(event_name =="PGL Major: Kraków 2017"))$event_name)
 
-which(unique(df$event_name) %in% MAJORS)
+starlader = pays_tournois %>% filter(event_id == 4443)
 
-df %>% filter(event_name %in% MAJORS)
+starlader[starlader == "United Kingdom"] <- "UK" 
+starlader[starlader == "United States"] <- "USA" 
+
+countries = read.csv("data/countries_codes_and_coordinates.csv")
+
+names(countries)
+
+
+starlader =merge(starlader,countries,by="country")
+
+worldcountry = geojson_read("data/50m.geojson", what = "sp")
+
+starlader = starlader[order(starlader$alpha3),]
+
+
+# create plotting parameters for map
+bins = c(1,3,5,7,9,11,13,15,Inf)
+cv_pal <- colorBin("Oranges", domain = starlader$nbRep,bins = bins)
+plot_map <- worldcountry[worldcountry$ADM0_A3 %in% starlader$alpha3, ]
+
+# creat cv base map 
+basemap = leaflet(plot_map) %>% 
+  addTiles() %>% 
+  addLayersControl(
+    options = layersControlOptions(collapsed = FALSE)) %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  fitBounds(~-100,-60,~60,70) %>%
+  addLegend("bottomright", pal = cv_pal, values = ~starlader$nbRep,
+            title = "<small>Représentant par pays</small>") %>%
+  addPolygons(stroke = FALSE, smoothFactor = 1, fillOpacity = 0.5, fillColor = ~cv_pal(starlader$nbRep))
+
+basemap
+

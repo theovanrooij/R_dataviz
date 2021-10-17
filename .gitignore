@@ -1,1 +1,6 @@
-*.csv
+.Rproj.user
+brouillon.R
+data/players.csv
+data/pick.csv
+data/economy.csv
+data/results.csv
