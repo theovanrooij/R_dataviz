@@ -9,7 +9,7 @@ results <- as_tibble(read.csv("data/results.csv"))
 
 median(results$rank_1)
 
-# Pas tous les ids de chaque table. Dans result, on retrouve des tournois peu populaire et pas dans players
+# Pas tous les ids de chaque table. Dans result, on retrouve des tournois peu populaires et pas dans players
 diff <-setdiff(id_df,id_result)
 length(diff)
 
@@ -35,7 +35,7 @@ p
 # KD
 
 
-# Nécessaire ID car plusieurs pseudo similaire (ALEX par exemple)
+# Nécessaire ID car plusieurs pseudo sont similaires (ALEX par exemple)
 nb_match_joueur_annee <- df %>% group_by(year(date),player_name,player_id) %>% summarise(nbMatch=n()) %>% arrange(desc(nbMatch))
 names(nb_match_joueur_annee)[1] <- "Année" 
 nb_match_joueur_annee
@@ -60,7 +60,7 @@ if(!require(leaflet)) install.packages("leaflet", repos = "http://cran.us.r-proj
 if(!require(ggplot2)) install.packages("ggplot2", repos = "http://cran.us.r-project.org")
 
 
-# On isole les joueurs par tounois puis pay pays pour avopir le nombre de représentant d chaque pays par tournoi
+# On isole les joueurs par tounois puis par pays pour avoir le nombre de représentant(s) de chaque pays par tournoi
 pays_tournois <- df %>% group_by(event_id,event_name,player_id,player_name,country) %>% summarise() %>% group_by(event_name,event_id,country) %>% summarise(nbRep = n())
 
 
@@ -81,12 +81,12 @@ worldcountry = geojson_read("data/50m.geojson", what = "sp")
 starlader = starlader[order(starlader$alpha3),]
 
 
-# create plotting parameters for map
+# Create plotting parameters for map
 bins = c(1,3,5,7,9,11,13,15,Inf)
 cv_pal <- colorBin("Oranges", domain = starlader$nbRep,bins = bins)
 plot_map <- worldcountry[worldcountry$ADM0_A3 %in% starlader$alpha3, ]
 
-# creat cv base map 
+# Create cv base map 
 basemap = leaflet(plot_map) %>% 
   addTiles() %>% 
   addLayersControl(
