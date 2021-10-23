@@ -1,0 +1,26 @@
+.mainDiv{
+  position : fixed;
+  top:7vh;
+  height:93vh;
+  width:100vw;
+  overflow:hidden;
+}
+title{
+	height:5vh;
+}
+#controls {
+  /* Appearance */
+  background-color: white;
+  padding: 0 10px 10px 10px;
+  cursor: move;
+  /* Fade out while not hovering */
+  opacity: 0.55;
+  zoom: 0.9;
+  transition: opacity 500ms 1s;
+}
+
+#controls:hover {
+  /* Fade in while hovering */
+  opacity: 0.75;
+  transition-delay: 0;
+}
