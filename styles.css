@@ -1,13 +1,3 @@
-.mainDiv{
-  position : fixed;
-  top:7vh;
-  height:93vh;
-  width:100vw;
-  overflow:hidden;
-}
-title{
-	height:5vh;
-}
 #controls {
   /* Appearance */
   background-color: white;
@@ -23,4 +13,40 @@ title{
   /* Fade in while hovering */
   opacity: 0.75;
   transition-delay: 0;
+}
+
+.mainContainer {
+position:fixed;
+top:51px;
+bottom:0px;
+left: 0;
+right: 0;
+}
+
+.recherche {
+  display:flex;
+  margin-top : 15px;
+  margin-left : 15px;
+}
+
+.recherche>* {
+  margin-right : 15px;
+}
+
+.boxplots_container {
+  display:flex;
+}
+
+#stats {
+  display : flex;
+  justify-content: space-around;
+}
+#stats >* {
+  display : flex;
+  justify-content: space-between;
+}
+
+#kills_value,#deaths_value,#kd_value,#ratio_value,
+#hs_value,#assists_value,#fassists_value,#adr_value,#rating_value,#kast_value{
+  margin : 0 5px;
 }
