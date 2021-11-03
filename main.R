@@ -88,7 +88,7 @@ pays_tournois =merge(pays_tournois,countries,by="country")
 
 ### KD PAR TOURNOIS
 df_stats <- df %>% filter(event_id %in% majorID) %>% group_by(event_id,event_name,player_id,player_name,team) %>% 
-  summarise(nbKills = sum(kills,na.rm=TRUE),nbDeaths = sum(deaths,na.rm=TRUE),kdDiff = sum(kddiff,na.rm = TRUE),ratio_kd = nbKills/nbDeaths, nbHs = sum(hs,na.rm=TRUE),nbAssists =sum(assists,na.rm=TRUE),nbFlashAssists = sum(flash_assists,na.rm=TRUE),kast = mean(kast, na.rm=TRUE),mean_adr = mean(adr,na.rm=TRUE), mean_rating = mean(rating,na.rm=TRUE))
+  summarise(nbKills = sum(kills,na.rm=TRUE),nbDeaths = sum(deaths,na.rm=TRUE),kdDiff = sum(kddiff,na.rm = TRUE),ratio_kd = nbKills/nbDeaths, tauxHs = sum(hs,na.rm=TRUE),nbAssists =sum(assists,na.rm=TRUE),nbFlashAssists = sum(flash_assists,na.rm=TRUE),kast = mean(kast, na.rm=TRUE),mean_adr = mean(adr,na.rm=TRUE), mean_rating = mean(rating,na.rm=TRUE))
 df_stats_long <- pivot_longer(df_stats, !c("event_id","event_name","player_id","player_name","team"), names_to = "stat_name", values_to = "value")
 
 df_stats_majors <- df_stats %>% filter(event_id %in% majorID)
@@ -152,9 +152,9 @@ df_mean_rating <- df_reduit %>% group_by(mois = format(as.Date(date), "%Y-%m"),p
 ######
 df_stats <- df %>% filter(event_id %in% majorID) %>% group_by(event_id,event_name,player_id,player_name,team) %>% 
   summarise(nbKills = sum(kills,na.rm=TRUE),nbDeaths = sum(deaths,na.rm=TRUE),kdDiff = sum(kddiff,na.rm = TRUE),
-            ratio_kd = nbKills/nbDeaths, nbHs = sum(hs,na.rm=TRUE)/nbKills,nbAssists =sum(assists,na.rm=TRUE),
-            nbFlashAssists = sum(flash_assists,na.rm=TRUE),kast = mean(kast, na.rm=TRUE),
-            mean_adr = mean(adr,na.rm=TRUE), mean_rating = mean(rating,na.rm=TRUE))
+            ratio_kd = round(nbKills/nbDeaths*100,digits=2), tauxHs = round(sum(hs,na.rm=TRUE)/nbKills*100,digits=0),nbAssists =sum(assists,na.rm=TRUE),
+            nbFlashAssists = sum(flash_assists,na.rm=TRUE),kast = round(mean(kast, na.rm=TRUE),digits=0),
+            mean_adr = round(mean(adr,na.rm=TRUE),digits=2), mean_rating = round(mean(rating,na.rm=TRUE)*100,digits=2))
 
 # on pivote
 
@@ -218,7 +218,7 @@ ui <- navbarPage("Navbar!",
                     textOutput("kast_value")
                   ),
                 div(class="boxplots_container",
-                    plotlyOutput("adr_plot_player", width="50%", height="100%"),
+                    plotlyOutput("team_plot", width="50%", height="100%"),
                     plotlyOutput("rating_plot_player", width="50%", height="100%")
                 ),
             )
@@ -296,17 +296,10 @@ server <- function(input, output, session) {
     majorID[match(input$event,majorName)]
   })
   
-  reactive_mois_adr = reactive({
-    unique((df_mean_adr %>% filter(player_name == input$player & !is.na(adr_mean)))$mois)
-    
-  })
-  reactive_db_adr_boxplot = reactive({
-    df_mean_adr %>% filter (mois %in% reactive_mois_adr() )
+  reactive_db_team = reactive({
+    df_stats_long %>% filter(team == input$team & event_id == formatted_event_2() & stat_name %in% c("ratio_kd","nbAssists","kast","mean_rating","mean_adr","nbFlashAssists","tauxHs"))
   })
   
-  reactive_db_adr_player = reactive({
-    df_mean_adr %>% filter(player_name %in% c(input$player) & mois %in% reactive_mois_adr())
-  })
   
   reactive_mois_rating = reactive({
     unique((df_mean_rating %>% filter(player_name == input$player & !is.na(rating_mean)))$mois)
@@ -333,13 +326,13 @@ server <- function(input, output, session) {
       output$kills_value <- renderText({ paste("Nombre de kills : ",(stats %>% filter (stat_name == "nbKills"))$value ) })
       output$deaths_value <- renderText({ paste("Nombre de deaths : ",(stats %>% filter (stat_name == "nbDeaths"))$value)})
       output$kd_value <- renderText({ paste("Différence : ",(stats %>% filter (stat_name == "kdDiff"))$value)})
-      output$ratio_value <- renderText({ paste("Ratio : ",round((stats %>% filter (stat_name == "ratio_kd"))$value,digits=2))})
+      output$ratio_value <- renderText({ paste("Ratio : ",(stats %>% filter (stat_name == "ratio_kd"))$value /100)})
       output$assists_value <- renderText({ paste("Nombre d'Assists :",(stats %>% filter (stat_name == "nbAssists"))$value)})
-      output$hs_value <- renderText({ paste("Nombre de Headshot :",round((stats %>% filter (stat_name == "nbHs"))$value,digits=0)," %") })
+      output$hs_value <- renderText({ paste("Taux de Headshot :",(stats %>% filter (stat_name == "tauxHs"))$value," %") })
       output$fassists_value <- renderText({ paste("Nombre de Flash Assists :",(stats %>% filter (stat_name == "nbFlashAssists"))$value)})
-      output$adr_value <- renderText({ paste("ADR Moyen:",round((stats %>% filter (stat_name == "mean_adr"))$value,digits=2))})
-      output$rating_value <- renderText({ paste("Rating Moyen : ",round((stats %>% filter (stat_name == "mean_rating"))$value,digits=2))})
-      output$kast_value <- renderText({ paste("KAST :",round((stats %>% filter (stat_name == "kast"))$value,digits=0)," %") })
+      output$adr_value <- renderText({ paste("ADR Moyen:",(stats %>% filter (stat_name == "mean_adr"))$value)})
+      output$rating_value <- renderText({ paste("Rating Moyen : ",(stats %>% filter (stat_name == "mean_rating"))$value /100)})
+      output$kast_value <- renderText({ paste("KAST :",(stats %>% filter (stat_name == "kast"))$value," %") })
       isolate(paste(input$player, " - ",input$team, " - ",input$event))
     } else {
       paste("Aucun joueur correspondant")
@@ -347,22 +340,24 @@ server <- function(input, output, session) {
   })
   
   
-  output$adr_plot_player <- renderPlotly({
+  output$team_plot <- renderPlotly({
     input$submitButton
     
-    data <- isolate(reactive_db_adr_boxplot())
+    
+    data <- isolate(reactive_db_stat()) 
     if (dim(data)[1]>0) {
-    isolate(ggplot(data, aes(x=mois, y=adr_mean),show.legend = FALSE) + 
-              geom_boxplot(outlier.size = 0.01) +  geom_point(data=reactive_db_adr_player(), aes(x=mois, y=adr_mean,fill=player_name),show.legend = FALSE)+
-              theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)))
+      ggplot(isolate(reactive_db_team()),aes(x=value,y=stat_name,color=player_name)) + geom_point() 
     }
   })
   
   output$rating_plot_player <- renderPlotly({
     input$submitButton
-    data <- isolate(reactive_db_rating_boxplot())
+    
+    data <- isolate(reactive_db_stat()) 
+    
     if (dim(data)[1]>0) {
-      isolate(ggplot(data, aes(x=mois, y=rating_mean),show.legend = FALSE) + 
+      data 
+      isolate(ggplot(isolate(reactive_db_rating_boxplot()), aes(x=mois, y=rating_mean),show.legend = FALSE) + 
               geom_boxplot(outlier.size = 0.01) +  geom_point(data=reactive_db_rating_player(), aes(x=mois, y=rating_mean,fill=player_name),show.legend = FALSE)+
               theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)))
     }
