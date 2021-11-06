@@ -50,3 +50,9 @@ right: 0;
 #hs_value,#assists_value,#fassists_value,#adr_value,#rating_value,#kast_value{
   margin : 0 5px;
 }
+
+#kills_rank,#deaths_rank,#kd_rank,#ratio_rank,
+#hs_rank,#assists_rank,#fassists_rank,#adr_rank,#rating_rank,#kast_rank{
+  font-size:10px;
+  margin-top : 5px;
+}
