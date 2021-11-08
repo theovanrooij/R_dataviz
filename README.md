@@ -33,7 +33,7 @@ Dans ce projet nous allons nous intéresser aux statistiques des joueurs lors de
  
  Les Majors sont les tournois les plus importants de CS:GO. Ils sont bi-annuels et les équipes s'affrontent durant les six mois au sein de leur continent pour engranger des points. Les équipes avec le plus de points se qualifient ainsi pour le major.
   
- # User Guide
+# User Guide
  ### Package Nécessaire
  Afin de réaliser les packages suivants sont nécessaires :
  
@@ -47,9 +47,38 @@ Dans ce projet nous allons nous intéresser aux statistiques des joueurs lors de
  - geojsonio
  - leaflet
 
+Si vous ne possédez pas ces packages, le programme s'occupe de les télécharger au début du code.
+
+Le jeu de données étant de taille conséquente ( > 165 MB ). Nous avons créé un fichier download.py qui permet de les télécharger. Vous pouvez ainsi lancer le script avant de lancer l'application, ce qui vous permettra de gagner du temps et de ne pas avoir à les re télécharger à chaque lancement de l'application.
+
+Pour faciliter les test et éviter la configuration du script python avec l'API Kaggle, nous avons télécharger le jeux de données et l'avons hébergé sur notre site https://perso.esiee.fr/~vanrooit/R.
+
+Le script nécessite le module suivant : 
+
+ - requests
+
+Pour télécharger les données suivez les instructions suivantes :
+
+1. Ouvrez votre terminal python favori (Anaconda prompt de préférence car il contient déjà le module "*requests*")
+2. Rendez vous dans le dossier contenant notre projet
+3. Exécutez la commande  : `python download.py`
+
+Vous pouvez maintenant lancez l'application R shiny sans difficultés.
+Pour cela, ouvrez le fichier .Rproj dans Rstudio, assurez vous d'être dans le bon répertoire et lancer l'application en cliquant sur Run App.
  
- # Developper Guide
+
+
+# Developper Guide
   
+
+Nous avons décomposé notre application en 3 fichiers :
+1. main.R contient le traitement des données. Il crée tous les dataframes nécessaires à l'affichage du dashboard
+2. ui.R contient le code pour la partie graphique du dashboard
+3. server.R contient le code permettant d'afficher les graphiques de l'ui en faisant correspondre les valeurs renseignées par l'utilisateur dans l'ui et les dataframes créés dans la partie main.R
+
+Dans main.R, nous commençons par importer les deux fichiers csv et nous les fusionnons afin d'ajouter le classement des deux équipes au début du match. Ce classement est présent dans *results.csv* et pas dans *players.csv* qui est le fichier dont nous allons nous servir. Le classement nous servira à filtrer les matchs pour ne garder que ceux entre les équipes du top 30 mondial car, à valeur égale, les statistiques des joueurs du top 30 n'ont pas la même importance que celles des joueurs des équipes entre la 150e et 250e places.
+
+Une fois la fusion réalisé, nous réalisons plusieurs opérations d'aggrégation pour créer les datasets nécessaires au bon fonctionnement de l'application.
 
 # Rapport d'analyse
 
@@ -158,6 +187,8 @@ Comme voulu, nous avons accès à toutes les statistiques sur le haut de la page
 Concernant son positionnement au sein de son équipe, il n'est donc pas surprenant qu'il ait le rating, l'ADR, ratio et kast le plus élevé. En revanche son taux de headshot est le plus faible : il concentre ses tirs sur les zones de l'adversaire les plus accessibles. Il est également dernier aux nombre d'assistance réalisé. Cela n'est pas étonnant car en ayant le plus grands nombre de kills de son équipe, il profite du soutien de ses partenaires et a donc peu d'occasion de leur apporté le sien.
 
 Enfin, en observant l'évolution de son rating, nous comprenons d'où vient sa considération de meilleur joueur au monde. Depuis le début de sa carrière il a un rating moyen bien supérieur à la moyenne notamment depuis début 2018 où il est chaque mois très proche de l'upper fence.
+
+
 
 
 
