@@ -34,7 +34,7 @@ df <- merge(df,pivot,by.x=c("match_id","team"),by.y=c("match_id","t"), all.x=TRU
 names(df)[102] <- "rank_team"
 
 # On réitère l'opértion précédente mais on rajoute le classement de l'équipe adverse
-df <- as_tibble(merge(df,pivot,by.x=c("match_id","opponent"),by.y=c("match_id","t")))
+df <- as_tibble(merge(df,pivot,by.x=c("match_id","opponent"),by.y=c("match_id","t"), all.x=TRUE))
 names(df)[103] <- "rank_opponent"
 
 # On crée deux vecteurs qui permettent d'isoler les majors

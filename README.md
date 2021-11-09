@@ -1,7 +1,7 @@
 
 # Introduction
 
-  Nous avons choisi d'étudier un dataset répertoriant les données générés par les joueurs lors de matchs compétitifs du jeu Counter Strike : Global Offensive.
+  Nous avons choisi d'étudier un dataset répertoriant les données générés par les joueurs lors de matchs compétitifs du jeu Counter Strike : Global Offensive entre Octobre 2015 et Février 2020.
 
 Le jeu de données n'est pas présent dans le répertoire car il est trop lourd ( > 100 MB) et est à retrouver à l'adresse suivante : https://www.kaggle.com/mateusdmachado/csgo-professional-matches
 
@@ -184,12 +184,11 @@ Le second n'est pas lié aux Majors. Il met en valeur l'évolution du rating moy
 
 Dans cette analyse, nous allons concentrer notre analyse sur le joueur ***s1mple*** de l'équipe ***Natus Vincere*** lors du tournoi organisé à Katowice en 2019. Il est considéré comme un des deux meilleurs joueurs au monde.
 
-Comme voulu, nous avons accès à toutes les statistiques sur le haut de la page. Nous pouvons également comparé le rating moyen obtenu avec les boxplot obtenus sur l'onglet histogramme. Le rating moyen de s1mple sur ce tournoi est de 1.31. En regardant le boxplot correspondant, il se situe bien au dessus du troisième quartile qui est de 1.22. Le rating étant une métrique permettant de quantifier les performances d'un joueur, on en déduit qu'il a fait partie des meilleurs joueurs du tournoi. En regardant le graphique des KD, il est également un des joueurs avec le KD le plus élevé.
+Comme voulu, nous avons accès à toutes les statistiques sur le haut de la page. Nous pouvons également comparé le rating moyen obtenu avec les boxplot obtenus sur l'onglet histogramme. Le rating moyen de s1mple sur ce tournoi est de 1.31. En regardant le boxplot correspondant, il se situe bien au dessus du troisième quartile qui est de 1.22. Le rating étant une métrique permettant de quantifier les performances d'un joueur, on en déduit qu'il a fait partie des meilleurs joueurs du tournoi. En regardant le graphique des KD, il est également un des joueurs avec le KD le plus élevé. De plus, nous pouvons confirmer qu'il est parmis les meilleurs joueurs du tournois grâce au classement affiché pour chaque statistiques.
 
 Concernant son positionnement au sein de son équipe, il n'est donc pas surprenant qu'il ait le rating, l'ADR, ratio et kast le plus élevé. En revanche son taux de headshots est le plus faible : il concentre ses tirs sur les zones de l'adversaire les plus accessibles et non pas forcément sur la tête. Il est également dernier au nombre d'assistances réalisées. Cela n'est pas étonnant car en ayant le plus grands nombre de kills de son équipe, il profite du soutien de ses partenaires et a donc peu d'occasion de leur apporter le sien, ou bien il finit ses propres kills la plupart du temps sans avoir besoin de l'aide de ses coéquipiers.
 
-Enfin, en observant l'évolution de son rating, nous comprenons d'où vient sa considération de meilleur joueur au monde. Depuis le début de sa carrière, il a un rating moyen bien supérieur à la moyenne. Notamment depuis début 2018, où il est chaque mois très proche de l'upper fence.
-
+Enfin, en observant l'évolution de son rating, nous comprenons d'où vient sa considération de meilleur joueur au monde. Depuis le début de sa carrière, il a un rating moyen bien supérieur à la moyenne. Notamment depuis début 2018, où il est chaque mois très proche de l'upper fence. 
 
 
 
