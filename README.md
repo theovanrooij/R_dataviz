@@ -32,6 +32,10 @@ Nous utilisons également partiellement le fichier "*results.csv*" afin de récu
 Dans ce projet nous allons nous intéresser aux statistiques des joueurs lors des tournois du Majors.
  
  Les Majors sont les tournois les plus importants de CS:GO. Ils sont bi-annuels et les équipes s'affrontent durant les six mois au sein de leur continent pour engranger des points. Les équipes avec le plus de points se qualifient ainsi pour le Major.
+
+  Vous pouvez retrouver la liste des majors, des équipes et des joueurs à l'adresse suivantes : 
+  https://www.hltv.org/events/archive?eventType=MAJOR
+
   
 # User Guide
  ### Package Nécessaire
@@ -65,7 +69,7 @@ Pour télécharger les données, suivez les instructions suivantes :
 Vous pouvez maintenant lancez l'application R shiny sans difficultés.
 Pour cela, ouvrez le fichier .Rproj dans Rstudio, ouvrez ensuite le fichier `main.R` puis cliquez sur `Run app` en haut de l'onglet.
 
-Si vous n'avez les modules nécessaires d'installés, l'application les installe automatiquement ce qui peut nécessiter un temps d'attente.
+Si vous n'avez pas les modules nécessaires d'installés, l'application les installe automatiquement, ce qui peut nécessiter un temps d'attente.
  
 
 
@@ -199,6 +203,8 @@ Concernant son positionnement au sein de son équipe, il n'est donc pas surprena
 
 Enfin, en observant l'évolution de son rating, nous comprenons d'où vient sa considération de meilleur joueur au monde. Depuis le début de sa carrière, il a un rating moyen bien supérieur à la moyenne. Notamment depuis début 2018, où il est chaque mois très proche de l'upper fence. 
 
+Une amélioration possible de cet onglet serait de remplacer les text input pour team et joueur et de les remplacer par un dropdown ne contenant que les valeurs des joueurs / teams présents sur le tournoi sélectionné. Comme cette fonctionnalitée n'est pas en place, vous pouvez retrouver la liste des majors, des équipes et des joueurs à l'adresse suivantes : 
+  https://www.hltv.org/events/archive?eventType=MAJOR
 
 
 
