@@ -1,4 +1,4 @@
-
+VAN ROOIJ Théo et DANG Méline
 # Introduction
 
   Nous avons choisi d'étudier un dataset répertoriant les données générés par les joueurs lors de matchs compétitifs du jeu Counter Strike : Global Offensive entre Octobre 2015 et Février 2020.
