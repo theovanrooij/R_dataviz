@@ -79,7 +79,14 @@ Dans main.R, nous commençons par importer les deux fichiers csv et nous les fus
 
 Une fois la fusion réalisée, nous réalisons plusieurs opérations d'aggrégation pour créer les datasets nécessaires au bon fonctionnement de l'application.
 
+Pour modifier l'aspect visuel du dashboard, vous pouvez ajouter les éléments dans ui.R et leur appliquer des éléments de style dans `style.css`.
 
+Pour ajouter de nouveaux graphiques la procédure est donc la suivante : 
+1. Créer le Dataframe contenant les statistiques à étudier dans `main.R`
+2. Ajouter les composants visuels dans `ui.R`
+3. Dans `server.R`, ajouter les lignes de code permettant d'afficher les données voulu dans le nouveau composant visuel.
+4. Dans `server.R`, ajouter éventuellement les expressions réactives permettant de prendre en comptes les inputs rempli par l'utilisateur 
+5. Enfin, modifier le fichier `style.css` pour stylisé le nouveau graphique
 
 # Rapport d'analyse
 
