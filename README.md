@@ -29,11 +29,11 @@ Chaque observation de ce fichier correspond aux statistiques d'un joueur pour un
 
 Nous utilisons également partiellement le fichier "*results.csv*" afin de récupérer le classement des deux équipes au moment du match observé.
 
-Dans ce projet nous allons nous intéresser aux statistiques des joueurs lors des tournois du Majors.
+Dans ce projet nous allons nous intéresser aux statistiques des joueurs lors des tournois du Majors En nous questionnant sur les caractéristiques d'un joueur professionnel.
  
  Les Majors sont les tournois les plus importants de CS:GO. Ils sont bi-annuels et les équipes s'affrontent durant les six mois au sein de leur continent pour engranger des points. Les équipes avec le plus de points se qualifient ainsi pour le Major.
 
-  Vous pouvez retrouver la liste des majors, des équipes et des joueurs à l'adresse suivantes : 
+  Vous pouvez retrouver la liste des majors, des équipes et des joueurs à l'adresse suivante : 
   https://www.hltv.org/events/archive?eventType=MAJOR
 
   
@@ -91,8 +91,8 @@ Pour ajouter de nouveaux graphiques la procédure est donc la suivante :
 1. Créer le Dataframe contenant les statistiques à étudier dans `main.R`
 2. Ajouter les composants visuels dans `ui.R`
 3. Dans `server.R`, ajouter les lignes de code permettant d'afficher les données voulu dans le nouveau composant visuel.
-4. Dans `server.R`, ajouter éventuellement les expressions réactives permettant de prendre en comptes les inputs rempli par l'utilisateur 
-5. Enfin, modifier le fichier `style.css` pour stylisé le nouveau graphique
+4. Dans `server.R`, ajouter éventuellement les expressions réactives permettant de prendre en compte les inputs remplies par l'utilisateur 
+5. Enfin, modifier le fichier `style.css` pour styliser le nouveau graphique
 
 # Rapport d'analyse
 
@@ -197,13 +197,13 @@ Le second n'est pas lié aux Majors. Il met en valeur l'évolution du rating moy
 
 Dans cette analyse, nous allons concentrer notre analyse sur le joueur ***s1mple*** de l'équipe ***Natus Vincere*** lors du tournoi organisé à Katowice en 2019. Il est considéré comme un des deux meilleurs joueurs au monde.
 
-Comme voulu, nous avons accès à toutes les statistiques sur le haut de la page. Nous pouvons également comparé le rating moyen obtenu avec les boxplot obtenus sur l'onglet histogramme. Le rating moyen de s1mple sur ce tournoi est de 1.31. En regardant le boxplot correspondant, il se situe bien au dessus du troisième quartile qui est de 1.22. Le rating étant une métrique permettant de quantifier les performances d'un joueur, on en déduit qu'il a fait partie des meilleurs joueurs du tournoi. En regardant le graphique des KD, il est également un des joueurs avec le KD le plus élevé. De plus, nous pouvons confirmer qu'il est parmis les meilleurs joueurs du tournois grâce au classement affiché pour chaque statistiques.
+Comme voulu, nous avons accès à toutes les statistiques sur le haut de la page. Nous pouvons également comparer le rating moyen obtenu avec les boxplot obtenus sur l'onglet histogramme. Le rating moyen de s1mple sur ce tournoi est de 1.31. En regardant le boxplot correspondant, il se situe bien au dessus du troisième quartile qui est de 1.22. Le rating étant une métrique permettant de quantifier les performances d'un joueur, on en déduit qu'il a fait partie des meilleurs joueurs du tournoi. En regardant le graphique des KD, il est également un des joueurs avec le KD le plus élevé. De plus, nous pouvons confirmer qu'il est parmi les meilleurs joueurs du tournoi grâce au classement affiché pour chaque statistiques.
 
 Concernant son positionnement au sein de son équipe, il n'est donc pas surprenant qu'il ait le rating, l'ADR, ratio et kast le plus élevé. En revanche son taux de headshots est le plus faible : il concentre ses tirs sur les zones de l'adversaire les plus accessibles et non pas forcément sur la tête. Il est également dernier au nombre d'assistances réalisées. Cela n'est pas étonnant car en ayant le plus grands nombre de kills de son équipe, il profite du soutien de ses partenaires et a donc peu d'occasion de leur apporter le sien, ou bien il finit ses propres kills la plupart du temps sans avoir besoin de l'aide de ses coéquipiers.
 
 Enfin, en observant l'évolution de son rating, nous comprenons d'où vient sa considération de meilleur joueur au monde. Depuis le début de sa carrière, il a un rating moyen bien supérieur à la moyenne. Notamment depuis début 2018, où il est chaque mois très proche de l'upper fence. 
 
-Une amélioration possible de cet onglet serait de remplacer les text input pour team et joueur et de les remplacer par un dropdown ne contenant que les valeurs des joueurs / teams présents sur le tournoi sélectionné. Comme cette fonctionnalitée n'est pas en place, vous pouvez retrouver la liste des majors, des équipes et des joueurs à l'adresse suivantes : 
+Une amélioration possible de cet onglet serait de remplacer les text input pour team et joueur et de les remplacer par un dropdown ne contenant que les valeurs des joueurs / teams présentes sur le tournoi sélectionné. Comme cette fonctionnalité n'est pas en place, vous pouvez retrouver la liste des majors, des équipes et des joueurs à l'adresse suivante : 
   https://www.hltv.org/events/archive?eventType=MAJOR
 
 
