@@ -60,10 +60,12 @@ Pour télécharger les données, suivez les instructions suivantes :
 
 1. Ouvrez votre terminal python favori (Anaconda prompt de préférence car il contient déjà le module "*requests*")
 2. Rendez vous dans le dossier contenant notre projet
-3. Exécutez la commande  : `python download.py`
+3. Exécutez la commande  : `python download.py`. L'éxécution peut prendre un certains temps en fonction de votre connection
 
 Vous pouvez maintenant lancez l'application R shiny sans difficultés.
-Pour cela, ouvrez le fichier .Rproj dans Rstudio, assurez vous d'être dans le bon répertoire et lancer l'application en cliquant sur Run App.
+Pour cela, ouvrez le fichier .Rproj dans Rstudio, ouvrez ensuite le fichier `main.R` puis cliquez sur `Run app` en haut de l'onglet.
+
+Si vous n'avez les modules nécessaires d'installés, l'application les installe automatiquement ce qui peut nécessiter un temps d'attente.
  
 
 
